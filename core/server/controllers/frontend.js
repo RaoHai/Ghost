@@ -109,6 +109,11 @@ frontendControllers = {
             });
         }).otherwise(handleError(next));
     },
+    'tags': function (req, res, next) {
+        api.tags.browse().then(function (tags) {
+            res.json(tags);
+        });
+    },
     'tag': function (req, res, next) {
         // Parse the page number
         var pageParam = req.params.page !== undefined ? parseInt(req.params.page, 10) : 1,

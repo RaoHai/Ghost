@@ -20,7 +20,7 @@ frontendRoutes = function () {
         res.redirect(301, subdir + '/rss/');
     });
 
-
+    router.get('/tags', frontend.tags);
     router.get('/tag/:slug/rss/', frontend.rss);
     router.get('/tag/:slug/rss/:page/', frontend.rss);
     router.get('/tag/:slug/page/:page/', frontend.tag);
