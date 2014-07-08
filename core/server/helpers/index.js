@@ -689,6 +689,21 @@ coreHelpers.helperMissing = function (arg) {
     errors.logError('Missing helper: "' + arg + '"');
 };
 
+coreHelpers.isChinese = function (context, options) {
+    var re = /[^\u4e00-\u9fa5]/,
+    subcontext = context.substring(0, 25);
+
+    console.log(subcontext);
+
+    if(/[^\x00-\xff]/g.test(subcontext)) {
+        console.log("find chinese");
+        return options.fn(this);
+    }
+
+    return options.inverse(this);
+    
+};
+
 // ## Admin URL helper
 // uses urlFor to generate a URL for either the admin or the frontend.
 coreHelpers.admin_url = function (options) {
@@ -788,6 +803,8 @@ registerHelpers = function (adminHbs, assetHash) {
     registerThemeHelper('pagination', coreHelpers.pagination);
 
     registerThemeHelper('tags', coreHelpers.tags);
+
+    registerThemeHelper('isChinese', coreHelpers.isChinese);
 
     registerAsyncThemeHelper('body_class', coreHelpers.body_class);
 
