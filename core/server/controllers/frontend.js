@@ -7,7 +7,9 @@
 var moment      = require('moment'),
     RSS         = require('rss'),
     _           = require('lodash'),
+    fs          = require('fs'),
     url         = require('url'),
+    path        = require('path'),
     when        = require('when'),
 
     api         = require('../api'),
@@ -108,6 +110,27 @@ frontendControllers = {
                 res.render('index', formatPageResponse(posts, page));
             });
         }).otherwise(handleError(next));
+    },
+    'labs': function (req, res, next) {
+        var labsPath = "./content/labs";
+        fs.readdir(labsPath, function (err, dir) {
+            if (!err) {
+                dir = dir.map(function (f) {
+                    if (fs.statSync(path.join(labsPath, f)).isDirectory()) {
+                        return {
+                            name : f
+                        };
+                    }
+                });
+                console.log(dir);
+                res.render('labs', {
+                    title: 'Laboratory',
+                    labs: dir
+                });
+
+            }
+        });
+        
     },
     'tags': function (req, res, next) {
         api.tags.browse().then(function (tags) {

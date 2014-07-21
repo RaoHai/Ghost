@@ -61,6 +61,15 @@ localFileStore = _.extend(baseStore, {
 
         // For some reason send divides the max age number by 1000
         return express['static'](config().paths.imagesPath, {maxAge: ONE_YEAR_MS});
+    },
+
+    'labs': function () {
+         var ONE_HOUR_MS = 60 * 60 * 1000,
+            ONE_YEAR_MS = 365 * 24 * ONE_HOUR_MS;
+
+        // For some reason send divides the max age number by 1000
+        console.log(config().paths.labsPath);
+        return express['static'](config().paths.labsPath, {maxAge: ONE_YEAR_MS});
     }
 });
 

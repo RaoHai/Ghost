@@ -316,6 +316,30 @@ coreHelpers.excerpt = function (options) {
     );
 };
 
+coreHelpers.summary = function (options) {
+    var re = /[^\u4e00-\u9fa5]/,
+    summarySource = String(this.html),
+    truncateOptions = {},
+    titleImage,
+    summaryHtml;
+
+
+    if(/[^\x00-\xff]/g.test(summarySource)) {
+        truncateOptions.characters = 300;
+    } else {
+        truncateOptions.words = 100;
+    }
+
+    /*jslint regexp:true */
+    titleImage = summarySource.match(/<img\b[^>]+?src\s*=\s*['"]?([^\s'"?#>]+)/)[1];
+    summarySource = '<img class="title-image" src="' + titleImage +' "/>'+ summarySource;
+    /*jslint regexp:false */
+
+    return new hbs.handlebars.SafeString(
+        downsize(summarySource, truncateOptions)
+    );
+
+};
 // ### Filestorage helper
 //
 // *Usage example:*
@@ -804,7 +828,7 @@ registerHelpers = function (adminHbs, assetHash) {
 
     registerThemeHelper('tags', coreHelpers.tags);
 
-    registerThemeHelper('isChinese', coreHelpers.isChinese);
+    registerThemeHelper('summary', coreHelpers.summary);
 
     registerAsyncThemeHelper('body_class', coreHelpers.body_class);
 

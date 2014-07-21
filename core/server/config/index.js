@@ -63,6 +63,7 @@ function updateConfig(config) {
             'themePath':        path.resolve(contentPath, 'themes'),
             'appPath':          path.resolve(contentPath, 'apps'),
             'imagesPath':       path.resolve(contentPath, 'images'),
+            'labsPath':         path.resolve(contentPath, 'labs'),
             'imagesRelPath':    'content/images',
 
             'adminViews':       path.join(corePath, '/server/views/'),
