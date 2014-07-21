@@ -331,8 +331,11 @@ coreHelpers.summary = function (options) {
     }
 
     /*jslint regexp:true */
-    titleImage = summarySource.match(/<img\b[^>]+?src\s*=\s*['"]?([^\s'"?#>]+)/)[1];
-    summarySource = '<img class="title-image" src="' + titleImage +' "/>'+ summarySource;
+    var match = summarySource.match(/<img\b[^>]+?src\s*=\s*['"]?([^\s'"?#>]+)/);
+    if (match) {
+        titleImage = match[1];
+        summarySource = '<img class="title-image" src="' + titleImage +' "/>'+ summarySource;
+    }
     /*jslint regexp:false */
 
     return new hbs.handlebars.SafeString(
