@@ -38,6 +38,7 @@ apiRoutes = function (middleware) {
 
     // ## Tags
     router.get('/tags', api.http(api.tags.browse));
+    router.get('/tags/:id', api.http(api.tags.read));
 
     // ## Roles
     router.get('/roles/', api.http(api.roles.browse));

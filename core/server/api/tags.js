@@ -19,11 +19,23 @@ tags = {
      */
     browse: function browse(options) {
         return canThis(options.context).browse.tag().then(function () {
-            return dataProvider.Tag.findAll(options).then(function (result) {
+            return dataProvider.Tag.findPage(options).then(function (result) {
                 return {tags: result.toJSON()};
             });
         }, function () {
             return Promise.reject(new errors.NoPermissionError('You do not have permission to browse tags.'));
+        });
+    },
+    read: function read(options) {
+        var attrs = ['id', 'slug'],
+        data = _.pick(options, attrs);
+
+        return dataProvider.Tag.findOne(data, options).then(function (result) {
+            if (result) {
+                return {tags: [result.toJSON()]};
+            }
+
+            return Promise.reject(new errors.NotFoundError('Tag not found.'));
         });
     }
 };

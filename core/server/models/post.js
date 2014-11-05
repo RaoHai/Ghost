@@ -298,6 +298,7 @@ Post = ghostBookshelf.Model.extend({
             where: {}
         }, options);
 
+        console.log("posts:", options);
         if (options.staticPages !== 'all') {
             // convert string true/false to boolean
             if (!_.isBoolean(options.staticPages)) {
