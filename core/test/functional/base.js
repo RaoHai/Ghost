@@ -88,6 +88,10 @@ screens = {
         url: 'ghost/settings/about',
         selector: '.settings-nav-about.active'
     },
+    'settings.tags' : {
+        url: 'ghost/settings/tags',
+        selector: '.settings-nav-tags.active'
+    },
     'settings.users': {
         url: 'ghost/settings/users',
         linkSelector: '.settings-nav-users a',
