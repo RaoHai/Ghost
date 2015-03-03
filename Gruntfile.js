@@ -690,8 +690,9 @@ var _              = require('lodash'),
             var done = this.async(),
                 options = ['host', 'noPort', 'port', 'email', 'password'],
                 args = ['test']
-                    .concat(grunt.option('target') || target || ['client/'])
-                    .concat(['--includes=base.js', '--log-level=debug', '--port=2369']);
+                    .concat('client/settings_tags_test.js')
+                    //.concat(grunt.option('target') || target || ['client/'])
+                    .concat(['--includes=base.js', '--log-level=debug', '--port=2369', '--web-security=no']);
 
             // Forward parameters from grunt to casperjs
             _.each(options, function processOption(option) {
@@ -947,6 +948,11 @@ var _              = require('lodash'),
         //
         // The purpose of the functional tests is to ensure that Ghost is working as is expected from a user perspective
         // including buttons and other important interactions in the admin UI.
+
+        grunt.registerTask('test-tags', 'Run functional interface tests (CasperJS)',
+            ['clean:test', 'setTestEnv', 'ensureConfig', 'cleanDatabase', 'express:test', 'spawnCasperJS', 'express:test:stop',]
+        );
+
         grunt.registerTask('test-functional', 'Run functional interface tests (CasperJS)',
             ['clean:test', 'setTestEnv', 'ensureConfig', 'cleanDatabase', 'express:test', 'spawnCasperJS', 'express:test:stop',
             'test-functional-setup']
